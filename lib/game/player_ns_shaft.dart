@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/game.dart';
 import 'package:player_ns_shaft/game/entities/control/control_left.dart';
 import 'package:player_ns_shaft/game/entities/control/control_right.dart';
-import 'package:player_ns_shaft/game/game.dart';
+import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 enum WarriorBehavior {
@@ -36,7 +36,7 @@ class VeryGoodFlameGame extends FlameGame with HasTappables {
   Future<void> onLoad() async {
     camera.zoom = 4;
 
-    await add(Player(position: (size / 2)..add(Vector2(5, 0))));
+    await add(Player(position: Vector2(size.x / 2 + 5, 15)));
     await add(ControlLeft(position: Vector2(10, size.y - 10)));
     await add(ControlRight(position: Vector2(25, size.y - 10)));
   }
