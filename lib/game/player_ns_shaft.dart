@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:player_ns_shaft/game/entities/control/control_left.dart';
 import 'package:player_ns_shaft/game/entities/control/control_right.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
+import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 enum WarriorBehavior {
@@ -13,7 +14,8 @@ enum WarriorBehavior {
   goLeft,
 }
 
-class VeryGoodFlameGame extends FlameGame with HasTappables {
+class VeryGoodFlameGame extends FlameGame
+    with HasTappables, HasCollisionDetection {
   VeryGoodFlameGame({
     required this.l10n,
     required this.effectPlayer,
@@ -35,8 +37,8 @@ class VeryGoodFlameGame extends FlameGame with HasTappables {
   @override
   Future<void> onLoad() async {
     camera.zoom = 4;
-
-    await add(Player(position: Vector2(size.x / 2 + 5, 15)));
+    await add(Player(position: Vector2(size.x / 2 - 20, 15)));
+    await add(Terrace(position: Vector2(size.x / 2 - 20, 80)));
     await add(ControlLeft(position: Vector2(10, size.y - 10)));
     await add(ControlRight(position: Vector2(25, size.y - 10)));
   }

@@ -1,16 +1,17 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_behaviors/flame_behaviors.dart';
 import 'package:player_ns_shaft/game/game.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 
-class Player extends Entity with HasGameRef<VeryGoodFlameGame> {
+class Player extends PositionComponent
+    with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks {
   Player({
     required super.position,
   }) : super(
-          anchor: Anchor.center,
           size: Vector2(69, 44),
-          behaviors: [],
-        );
+        ) {
+    add(RectangleHitbox());
+  }
 
   SpriteAnimationGroupComponent? _animationGroupComponent;
 
@@ -86,5 +87,8 @@ class Player extends Entity with HasGameRef<VeryGoodFlameGame> {
     }
 
     _animationGroupComponent!.current = gameRef.warriorBehavior;
+    if (!isColliding) {
+      position.y += 0.5;
+    }
   }
 }
