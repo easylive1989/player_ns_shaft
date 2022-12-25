@@ -20,6 +20,7 @@ class VeryGoodFlameGame extends FlameGame
     required this.l10n,
     required this.effectPlayer,
   }) {
+    debugMode = true;
     images.prefix = '';
   }
 
@@ -31,14 +32,15 @@ class VeryGoodFlameGame extends FlameGame
 
   WarriorBehavior warriorBehavior = WarriorBehavior.idle;
 
+
   @override
   Color backgroundColor() => const Color(0xFF2A48DF);
 
   @override
   Future<void> onLoad() async {
     camera.zoom = 4;
-    await add(Player(position: Vector2(size.x / 2 - 20, 15)));
-    await add(Terrace(position: Vector2(size.x / 2 - 20, 80)));
+    await add(Player(position: Vector2(size.x / 2, 15)));
+    await add(Terrace(position: Vector2(size.x / 2, 80)));
     await add(ControlLeft(position: Vector2(10, size.y - 10)));
     await add(ControlRight(position: Vector2(25, size.y - 10)));
   }

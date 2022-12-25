@@ -7,10 +7,11 @@ class Player extends PositionComponent
     with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks {
   Player({
     required super.position,
-  }) : super(
-          size: Vector2(69, 44),
-        ) {
-    add(RectangleHitbox());
+  }) : super(size: Vector2(69, 44), anchor: Anchor.center) {
+    add(RectangleHitbox(
+      position: Vector2(16, 10),
+      size: Vector2(20, 34),
+    ));
   }
 
   SpriteAnimationGroupComponent? _animationGroupComponent;
@@ -75,15 +76,22 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
-    bool isGoLeft = gameRef.warriorBehavior == WarriorBehavior.goLeft;
-    if (isGoLeft && !_animationGroupComponent!.isFlippedHorizontally) {
-      _animationGroupComponent!.flipHorizontallyAroundCenter();
-      _animationGroupComponent!.position..sub(Vector2(18, 0));
+    final isGoLeft = gameRef.warriorBehavior == WarriorBehavior.goLeft;
+    if (isGoLeft && !isFlippedHorizontally) {
+      flipHorizontallyAroundCenter();
+      position.x -= 18;
     }
 
-    if (!isGoLeft && _animationGroupComponent!.isFlippedHorizontally) {
-      _animationGroupComponent!.flipHorizontallyAroundCenter();
-      _animationGroupComponent!.position..add(Vector2(18, 0));
+    if (!isGoLeft && isFlippedHorizontally) {
+      flipHorizontallyAroundCenter();
+      position.x += 18;
+    }
+
+    if (gameRef.warriorBehavior == WarriorBehavior.goRight) {
+      position.x += 1;
+    }
+    if (gameRef.warriorBehavior == WarriorBehavior.goLeft) {
+      position.x -= 1;
     }
 
     _animationGroupComponent!.current = gameRef.warriorBehavior;
