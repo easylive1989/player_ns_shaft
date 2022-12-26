@@ -5,8 +5,9 @@ import 'package:player_ns_shaft/gen/assets.gen.dart';
 
 class Player extends PositionComponent
     with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks {
-  Player({
+  Player( {
     required super.position,
+    required this.joystick,
   }) : super(size: Vector2(69, 44), anchor: Anchor.center) {
     add(RectangleHitbox(
       position: Vector2(16, 10),
@@ -14,6 +15,7 @@ class Player extends PositionComponent
     ));
   }
 
+  final JoystickComponent joystick;
   SpriteAnimationGroupComponent? _animationGroupComponent;
 
   @override
@@ -32,6 +34,7 @@ class Player extends PositionComponent
       size: size,
     );
     await add(_animationGroupComponent!);
+
   }
 
   Future<SpriteAnimation> _getIdleAnimation() {
@@ -76,27 +79,30 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
-    final isGoLeft = gameRef.warriorBehavior == WarriorBehavior.goLeft;
+    if (joystick.direction == JoystickDirection.right) {
+      position.x += joystick.relativeDelta[0];
+      _animationGroupComponent!.current = WarriorBehavior.goRight;
+    }
+    if (joystick.direction == JoystickDirection.left) {
+      position.x += joystick.relativeDelta[0];
+      _animationGroupComponent!.current = WarriorBehavior.goLeft;
+    }
+
+    if(!joystick.isDragged) {
+      _animationGroupComponent!.current = WarriorBehavior.idle;
+    }
+
+    final isGoLeft = _animationGroupComponent!.current == WarriorBehavior.goLeft;
     if (isGoLeft && !isFlippedHorizontally) {
       flipHorizontallyAroundCenter();
-      position.x -= 18;
     }
 
     if (!isGoLeft && isFlippedHorizontally) {
       flipHorizontallyAroundCenter();
-      position.x += 18;
     }
 
-    if (gameRef.warriorBehavior == WarriorBehavior.goRight) {
-      position.x += 1;
-    }
-    if (gameRef.warriorBehavior == WarriorBehavior.goLeft) {
-      position.x -= 1;
-    }
-
-    _animationGroupComponent!.current = gameRef.warriorBehavior;
     if (!isColliding) {
-      position.y += 0.5;
+      position.y += 1;
     }
   }
 }

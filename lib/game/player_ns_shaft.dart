@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:player_ns_shaft/game/entities/control/control_left.dart';
-import 'package:player_ns_shaft/game/entities/control/control_right.dart';
+import 'package:flame/palette.dart';
+import 'package:flutter/material.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
@@ -15,12 +16,12 @@ enum WarriorBehavior {
 }
 
 class VeryGoodFlameGame extends FlameGame
-    with HasTappables, HasCollisionDetection {
+    with HasTappables, HasCollisionDetection , HasDraggables{
   VeryGoodFlameGame({
     required this.l10n,
     required this.effectPlayer,
   }) {
-    debugMode = true;
+    // debugMode = true;
     images.prefix = '';
   }
 
@@ -28,20 +29,24 @@ class VeryGoodFlameGame extends FlameGame
 
   final AudioPlayer effectPlayer;
 
-  int counter = 0;
-
-  WarriorBehavior warriorBehavior = WarriorBehavior.idle;
-
-
   @override
   Color backgroundColor() => const Color(0xFF2A48DF);
 
   @override
   Future<void> onLoad() async {
     camera.zoom = 4;
-    await add(Player(position: Vector2(size.x / 2, 15)));
+    final knobPaint = BasicPalette.blue.withAlpha(200).paint();
+    final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
+    final joystick = JoystickComponent(
+      knob: CircleComponent(paint: knobPaint),
+      background: CircleComponent(radius: 50, paint: backgroundPaint),
+      margin: const EdgeInsets.only(left: 30, bottom: 40),
+    );
+
+    await add(joystick);
+    final player = Player(position: Vector2(size.x / 2, 15), joystick: joystick);
+    camera.followComponent(player);
+    await add(player);
     await add(Terrace(position: Vector2(size.x / 2, 80)));
-    await add(ControlLeft(position: Vector2(10, size.y - 10)));
-    await add(ControlRight(position: Vector2(25, size.y - 10)));
   }
 }
