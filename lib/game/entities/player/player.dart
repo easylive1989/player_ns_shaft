@@ -1,6 +1,5 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/game.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 
@@ -104,10 +103,6 @@ class Player extends PositionComponent
 
     if (!isColliding) {
       position.y += 1;
-    }
-
-    if (position.y % 50 == 0) {
-      gameRef.add(Terrace(position: Vector2.copy(position)..add(Vector2(0, 50))));
     }
   }
 }

@@ -7,6 +7,7 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
+import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 enum WarriorBehavior {
@@ -50,5 +51,6 @@ class VeryGoodFlameGame extends FlameGame
     camera.followComponent(player);
     await add(player);
     await add(Terrace(position: Vector2(size.x / 2, 80)));
+    await add(TerraceGenerator(player));
   }
 }
