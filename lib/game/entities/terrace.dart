@@ -14,4 +14,5 @@ class Terrace extends PositionComponent {
   Future<void> onLoad() async {
     await add(RectangleComponent(size: Vector2(50, 10)));
   }
+
 }

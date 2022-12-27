@@ -29,6 +29,8 @@ class VeryGoodFlameGame extends FlameGame
 
   final AudioPlayer effectPlayer;
 
+  late Player player;
+
   @override
   Color backgroundColor() => const Color(0xFF2A48DF);
 
@@ -44,7 +46,7 @@ class VeryGoodFlameGame extends FlameGame
     );
 
     await add(joystick);
-    final player = Player(position: Vector2(size.x / 2, 15), joystick: joystick);
+    player = Player(position: Vector2(size.x / 2, 15), joystick: joystick);
     camera.followComponent(player);
     await add(player);
     await add(Terrace(position: Vector2(size.x / 2, 80)));
