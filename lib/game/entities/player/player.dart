@@ -111,7 +111,6 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
-    print(position.x);
     if (joystick.direction == JoystickDirection.right && canGoRight  && position.x <= gameRef.size.x) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent!.current = WarriorBehavior.goRight;
