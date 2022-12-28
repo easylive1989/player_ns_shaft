@@ -38,10 +38,10 @@ class VeryGoodFlameGame extends FlameGame
   @override
   Future<void> onLoad() async {
     camera.zoom = 4;
-    final knobPaint = BasicPalette.blue.withAlpha(200).paint();
-    final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
+    final knobPaint = BasicPalette.black.withAlpha(200).paint();
+    final backgroundPaint = BasicPalette.lightBlue.withAlpha(100).paint();
     final joystick = JoystickComponent(
-      knob: CircleComponent(paint: knobPaint),
+      knob: CircleComponent(radius: 10, paint: knobPaint),
       background: CircleComponent(radius: 50, paint: backgroundPaint),
       margin: const EdgeInsets.only(left: 30, bottom: 40),
     );

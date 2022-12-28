@@ -111,11 +111,12 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
-    if (joystick.direction == JoystickDirection.right && canGoRight) {
+    print(position.x);
+    if (joystick.direction == JoystickDirection.right && canGoRight  && position.x <= gameRef.size.x) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent!.current = WarriorBehavior.goRight;
     }
-    if (joystick.direction == JoystickDirection.left && canGoLeft) {
+    if (joystick.direction == JoystickDirection.left && canGoLeft&& position.x >= 0) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent!.current = WarriorBehavior.goLeft;
     }
