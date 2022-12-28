@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:player_ns_shaft/game/game.dart';
@@ -5,7 +6,7 @@ import 'package:player_ns_shaft/gen/assets.gen.dart';
 
 class Player extends PositionComponent
     with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks {
-  Player( {
+  Player({
     required super.position,
     required this.joystick,
   }) : super(size: Vector2(69, 44), anchor: Anchor.center) {
@@ -17,6 +18,38 @@ class Player extends PositionComponent
 
   final JoystickComponent joystick;
   SpriteAnimationGroupComponent? _animationGroupComponent;
+  bool canGoRight = true;
+  bool canGoLeft = true;
+  bool canGoY = true;
+
+  @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    super.onCollisionStart(intersectionPoints, other);
+    final xGroup = groupBy(intersectionPoints, (point) => point.x);
+    final yGroup = groupBy(intersectionPoints, (point) => point.y);
+    if (xGroup.length == 1) {
+      if (_animationGroupComponent!.current == WarriorBehavior.goRight) {
+        canGoRight = false;
+      } else {
+        canGoLeft = false;
+      }
+    }
+
+    if (yGroup.length == 1) {
+      canGoY = false;
+    }
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    super.onCollisionEnd(other);
+    canGoLeft = true;
+    canGoRight = true;
+    canGoY = true;
+  }
 
   @override
   Future<void> onLoad() async {
@@ -34,7 +67,6 @@ class Player extends PositionComponent
       size: size,
     );
     await add(_animationGroupComponent!);
-
   }
 
   Future<SpriteAnimation> _getIdleAnimation() {
@@ -79,20 +111,21 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
-    if (joystick.direction == JoystickDirection.right) {
+    if (joystick.direction == JoystickDirection.right && canGoRight) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent!.current = WarriorBehavior.goRight;
     }
-    if (joystick.direction == JoystickDirection.left) {
+    if (joystick.direction == JoystickDirection.left && canGoLeft) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent!.current = WarriorBehavior.goLeft;
     }
 
-    if(!joystick.isDragged) {
+    if (!joystick.isDragged) {
       _animationGroupComponent!.current = WarriorBehavior.idle;
     }
 
-    final isGoLeft = _animationGroupComponent!.current == WarriorBehavior.goLeft;
+    final isGoLeft =
+        _animationGroupComponent!.current == WarriorBehavior.goLeft;
     if (isGoLeft && !isFlippedHorizontally) {
       flipHorizontallyAroundCenter();
     }
@@ -101,7 +134,7 @@ class Player extends PositionComponent
       flipHorizontallyAroundCenter();
     }
 
-    if (!isColliding) {
+    if (canGoY) {
       position.y += 1;
     }
   }
