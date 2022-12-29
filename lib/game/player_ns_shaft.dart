@@ -52,8 +52,8 @@ class VeryGoodFlameGame extends FlameGame
     player = Player(position: Vector2(size.x / 2, 15), joystick: joystick);
     camera.followComponent(
       player,
+      worldBounds: Rect.fromLTWH(0, 0, size.x, double.infinity),
     );
-    camera.worldBounds = Rect.fromLTWH(0, 0, size.x, double.infinity);
 
     await add(player);
     await add(Terrace(position: Vector2(size.x / 2, 80)));

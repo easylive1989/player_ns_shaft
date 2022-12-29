@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:player_ns_shaft/game/entities/score.dart';
 import 'package:player_ns_shaft/game/game.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 
@@ -112,6 +111,18 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
+    final isGoLeft =
+        _animationGroupComponent!.current == WarriorBehavior.goLeft;
+    if (isGoLeft && !isFlippedHorizontally) {
+      flipHorizontallyAroundCenter();
+      position.x -= 18;
+    }
+
+    if (!isGoLeft && isFlippedHorizontally) {
+      flipHorizontallyAroundCenter();
+      position.x += 18;
+    }
+
     if (joystick.direction == JoystickDirection.right && canGoRight  && position.x <= gameRef.size.x) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent!.current = WarriorBehavior.goRight;
@@ -125,15 +136,6 @@ class Player extends PositionComponent
       _animationGroupComponent!.current = WarriorBehavior.idle;
     }
 
-    final isGoLeft =
-        _animationGroupComponent!.current == WarriorBehavior.goLeft;
-    if (isGoLeft && !isFlippedHorizontally) {
-      flipHorizontallyAroundCenter();
-    }
-
-    if (!isGoLeft && isFlippedHorizontally) {
-      flipHorizontallyAroundCenter();
-    }
 
     if (canGoY) {
       position.y += 1;
