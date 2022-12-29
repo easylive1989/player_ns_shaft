@@ -30,14 +30,14 @@
       "loadingPhase": {}
     }
   },
-  "counterText": "{count, plural, =1{You have tapped the unicorn 1 time} other{You have tapped the unicorn {count} times}}",
-  "@counterText": {
+  "scoreText": "Score: {score}",
+  "@scoreText": {
     "description": "Text for the counter component",
     "placeholders": {
-      "count": {
+      "score": {
         "type": "int",
         "example": "10",
-        "description": "The current count"
+        "description": "The current score"
       }
     }
   }

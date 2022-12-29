@@ -14,8 +14,10 @@ class TerraceGenerator extends Component with HasGameRef<VeryGoodFlameGame> {
     final random = Random();
     double currentGenerateSize = -50;
     if (player.position.y % 70 == 30 && player.position.y > 100) {
-      while (currentGenerateSize < gameRef.size.x + 100) {
-        final nextInt = random.nextInt(150);
+      gameRef.add(RectangleComponent(size: Vector2(50, 70), position: Vector2(-50, player.position.y + 200)));
+      gameRef.add(RectangleComponent(size: Vector2(50, 70), position: Vector2(gameRef.size.x, player.position.y + 200)));
+      while (currentGenerateSize < gameRef.size.x + 50) {
+        final nextInt = random.nextInt(300);
         currentGenerateSize += nextInt;
         gameRef.add(
           Terrace(position: Vector2(currentGenerateSize, player.position.y + 200)),

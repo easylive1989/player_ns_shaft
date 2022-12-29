@@ -6,6 +6,7 @@ import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
+import 'package:player_ns_shaft/game/entities/score.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
@@ -17,7 +18,7 @@ enum WarriorBehavior {
 }
 
 class VeryGoodFlameGame extends FlameGame
-    with HasTappables, HasCollisionDetection , HasDraggables{
+    with HasTappables, HasCollisionDetection, HasDraggables {
   VeryGoodFlameGame({
     required this.l10n,
     required this.effectPlayer,
@@ -44,6 +45,7 @@ class VeryGoodFlameGame extends FlameGame
       knob: CircleComponent(radius: 10, paint: knobPaint),
       background: CircleComponent(radius: 50, paint: backgroundPaint),
       margin: const EdgeInsets.only(left: 30, bottom: 40),
+      priority: 10,
     );
 
     await add(joystick);
@@ -52,5 +54,9 @@ class VeryGoodFlameGame extends FlameGame
     await add(player);
     await add(Terrace(position: Vector2(size.x / 2, 80)));
     await add(TerraceGenerator(player));
+    await add(Score(
+      margin: const EdgeInsets.only(top: 30, right: 30),
+      player: player,
+    ));
   }
 }
