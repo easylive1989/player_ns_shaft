@@ -22,12 +22,15 @@ class VeryGoodFlameGame extends FlameGame
   VeryGoodFlameGame({
     required this.l10n,
     required this.effectPlayer,
+    required this.isNormalMode,
   }) {
     // debugMode = true;
     images.prefix = '';
   }
 
   final AppLocalizations l10n;
+
+  final bool isNormalMode;
 
   final AudioPlayer effectPlayer;
 

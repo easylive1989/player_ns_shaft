@@ -2,6 +2,7 @@ import 'package:flame/game.dart' hide Route;
 import 'package:flame_audio/bgm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:player_ns_shaft/game/cubit/mode/mode_cubit.dart';
 import 'package:player_ns_shaft/game/game.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
@@ -12,7 +13,7 @@ class GamePage extends StatelessWidget {
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const GamePage(),
+      builder: (context) => const GamePage(),
     );
   }
 
@@ -33,6 +34,7 @@ class GameView extends StatefulWidget {
   const GameView({super.key, this.game});
 
   final FlameGame? game;
+
   @override
   State<GameView> createState() => _GameViewState();
 }
@@ -61,6 +63,7 @@ class _GameViewState extends State<GameView> {
         VeryGoodFlameGame(
           l10n: context.l10n,
           effectPlayer: context.read<AudioCubit>().effectPlayer,
+          isNormalMode: context.read<ModeCubit>().isNormalMode,
         );
     return Stack(
       children: [
