@@ -3,13 +3,16 @@ import 'package:flame/cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:player_ns_shaft/game/cubit/mode/mode_cubit.dart';
 import 'package:player_ns_shaft/game/view/game_page.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 import 'package:player_ns_shaft/loading/loading.dart';
 import 'package:player_ns_shaft/title/view/title_page.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({super.key, this.mode});
+
+  final String? mode;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,9 @@ class App extends StatelessWidget {
             AudioCache(prefix: ''),
           )..loadSequentially(),
         ),
+        BlocProvider(
+          create: (_) => ModeCubit(mode: mode),
+        )
       ],
       child: const AppView(),
     );
