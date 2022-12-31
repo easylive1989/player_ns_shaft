@@ -4,6 +4,7 @@ import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:player_ns_shaft/game/entities/final_terrace.dart';
+import 'package:player_ns_shaft/game/entities/hunter.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/game/entities/ring.dart';
 import 'package:player_ns_shaft/game/entities/score.dart';
@@ -53,8 +54,10 @@ class VeryGoodFlameGame extends FlameGame
 
     await add(joystick);
     player = Player(position: Vector2(size.x / 2, 15), joystick: joystick);
+    final hunter = Hunter(position: Vector2(0, 0));
+    await add(hunter);
     camera.followComponent(
-      player,
+      hunter,
       worldBounds: Rect.fromLTWH(0, 0, size.x, double.infinity),
     );
 
