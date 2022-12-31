@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 import 'package:player_ns_shaft/loading/loading.dart';
-import 'package:player_ns_shaft/title/title.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
+
+  static Route<void> route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => const LoadingPage(),
+    );
+  }
 
   @override
   State<LoadingPage> createState() => _LoadingPageState();
@@ -18,7 +23,7 @@ class _LoadingPageState extends State<LoadingPage> {
     if (!mounted) {
       return;
     }
-    await navigator.pushReplacement<void, void>(TitlePage.route());
+    await navigator.pushReplacementNamed('/title');
   }
 
   @override
