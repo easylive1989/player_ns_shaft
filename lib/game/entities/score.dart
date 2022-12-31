@@ -19,13 +19,14 @@ class Score extends HudMarginComponent<VeryGoodFlameGame> {
 
   @override
   Future<void> onLoad() async {
+    await super.onLoad();
     await add(
       text = TextComponent(
         anchor: Anchor.center,
         textRenderer: TextPaint(
           style: GoogleFonts.poppins(
             color: Colors.white,
-            fontSize: 4,
+            fontSize: 20,
           ),
         ),
       ),

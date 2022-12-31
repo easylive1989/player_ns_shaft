@@ -64,16 +64,16 @@ class VeryGoodFlameGame extends FlameGame
     await add(player);
     await add(Terrace(position: Vector2(size.x / 2, 80)));
     await add(TerraceGenerator(player));
-    // await add(
-    //   Score(
-    //     margin: const EdgeInsets.only(top: 30, right: 30),
-    //     player: player,
-    //   ),
-    // );
-    if (isNormalMode) {
-      await add(Ring(position: Vector2(size.x / 2, 300)));
+    await add(
+      Score(
+        margin: const EdgeInsets.only(top: 30, right: 60),
+        player: player,
+      ),
+    );
+    if (!isNormalMode) {
+      await add(Ring(position: Vector2(size.x / 2, 1000)));
       await add(
-        FinalTerrace(position: Vector2(0, 300), size: Vector2(size.x, 200)),
+        FinalTerrace(position: Vector2(0, 1000), size: Vector2(size.x, 200)),
       );
     }
   }
