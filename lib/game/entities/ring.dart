@@ -13,7 +13,10 @@ class Ring extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
   Future<void> onLoad() async {
     final sprite = await Sprite.load(Assets.images.ring.path);
     final spriteComponent = SpriteComponent(
-        sprite: sprite, size: Vector2(30, 30), anchor: Anchor.center);
+      sprite: sprite,
+      size: Vector2(30, 30),
+      anchor: Anchor.center,
+    );
     await add(spriteComponent);
   }
 

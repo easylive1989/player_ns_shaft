@@ -57,7 +57,9 @@ void main() {
     testWidgets('loading text', (tester) async {
       final navigator = MockNavigator();
       when(() => navigator.pushReplacementNamed(any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+            return null;
+          });
 
       Text textWidgetFinder() {
         return find.textContaining('Loading').evaluate().first.widget as Text;
@@ -66,7 +68,7 @@ void main() {
       await tester.pumpApp(
         LoadingPage(),
         preloadCubit: preloadCubit,
-        navigator: navigator
+        navigator: navigator,
       );
 
       expect(textWidgetFinder().data, 'Loading  ...');
@@ -88,7 +90,9 @@ void main() {
     testWidgets('redirects after loading', (tester) async {
       final navigator = MockNavigator();
       when(() => navigator.pushReplacementNamed(any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+            return null;
+      });
 
       await tester.pumpApp(
         LoadingPage(),
@@ -102,7 +106,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      verify(() => navigator.pushReplacementNamed("/title")).called(1);
+      verify(() => navigator.pushReplacementNamed('/title')).called(1);
     });
   });
 }
