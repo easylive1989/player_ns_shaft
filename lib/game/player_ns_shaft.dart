@@ -7,9 +7,11 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:player_ns_shaft/game/entities/final_terrace.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
+import 'package:player_ns_shaft/game/entities/ring.dart';
 import 'package:player_ns_shaft/game/entities/score.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
+import 'package:player_ns_shaft/game/entities/unicorn.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 enum WarriorBehavior {
@@ -69,8 +71,9 @@ class VeryGoodFlameGame extends FlameGame
     //   ),
     // );
     if (isNormalMode) {
+      await add(Ring(position: Vector2(size.x / 2, 300)));
       await add(
-        FinalTerrace(position: Vector2(0, 1000), size: Vector2(size.x, 200)),
+        FinalTerrace(position: Vector2(0, 300), size: Vector2(size.x, 200)),
       );
     }
   }

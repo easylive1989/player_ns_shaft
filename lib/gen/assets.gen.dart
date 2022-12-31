@@ -25,6 +25,9 @@ class $AssetsAudioGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/ring.png
+  AssetGenImage get ring => const AssetGenImage('assets/images/ring.png');
+
   /// File path: assets/images/unicorn_animation.png
   AssetGenImage get unicornAnimation =>
       const AssetGenImage('assets/images/unicorn_animation.png');
@@ -33,21 +36,8 @@ class $AssetsImagesGen {
   AssetGenImage get warriorAnimation =>
       const AssetGenImage('assets/images/warrior_animation.png');
 
-  /// File path: assets/images/wooden_control_left.png
-  AssetGenImage get woodenControlLeft =>
-      const AssetGenImage('assets/images/wooden_control_left.png');
-
-  /// File path: assets/images/wooden_control_right.png
-  AssetGenImage get woodenControlRight =>
-      const AssetGenImage('assets/images/wooden_control_right.png');
-
   /// List of all assets
-  List<AssetGenImage> get values => [
-        unicornAnimation,
-        warriorAnimation,
-        woodenControlLeft,
-        woodenControlRight
-      ];
+  List<AssetGenImage> get values => [ring, unicornAnimation, warriorAnimation];
 }
 
 class $AssetsLicensesGen {
