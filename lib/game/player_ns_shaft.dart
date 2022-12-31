@@ -44,7 +44,7 @@ class VeryGoodFlameGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    camera.zoom = 4;
+    camera.zoom = 3;
     final knobPaint = BasicPalette.black.withAlpha(200).paint();
     final backgroundPaint = BasicPalette.lightBlue.withAlpha(100).paint();
     final joystick = JoystickComponent(
@@ -62,7 +62,7 @@ class VeryGoodFlameGame extends FlameGame
     );
 
     await add(player);
-    await add(Terrace(position: Vector2(size.x / 2, 80)));
+    await add(Terrace(position: Vector2(size.x / 2, 140)));
     await add(TerraceGenerator(player));
     await add(
       Score(
