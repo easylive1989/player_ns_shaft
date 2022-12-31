@@ -11,7 +11,6 @@ import 'package:player_ns_shaft/game/entities/ring.dart';
 import 'package:player_ns_shaft/game/entities/score.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
-import 'package:player_ns_shaft/game/entities/unicorn.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 enum WarriorBehavior {
