@@ -113,6 +113,10 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
+    if (gameRef.isGameOver) {
+      return;
+    }
+
     final isGoLeft =
         _animationGroupComponent.current == WarriorBehavior.goLeft;
     if (isGoLeft && !isFlippedHorizontally) {

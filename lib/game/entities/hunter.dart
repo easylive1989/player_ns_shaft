@@ -6,6 +6,8 @@ class Hunter extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
 
   @override
   void update(double dt) {
-    position.y += 0.5;
+    if (!gameRef.isGameOver) {
+      position.y += 0.5;
+    }
   }
 }

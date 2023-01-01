@@ -4,6 +4,7 @@ import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:player_ns_shaft/game/entities/final_terrace.dart';
+import 'package:player_ns_shaft/game/entities/game_over.dart';
 import 'package:player_ns_shaft/game/entities/hunter.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/game/entities/ring.dart';
@@ -40,6 +41,16 @@ class VeryGoodFlameGame extends FlameGame
   @override
   Color backgroundColor() => const Color(0xFF2A48DF);
 
+  bool get isGameOver {
+    const overLimit = 50;
+    final playerTopY = player.position.y;
+    final cameraTopY = camera.position.y;
+    final isOverTopLimit = cameraTopY - overLimit > playerTopY;
+    final cameraBottomY = cameraTopY + camera.gameSize.y;
+    final isOverBottomLimit = cameraBottomY + overLimit < playerTopY;
+    return isOverTopLimit || isOverBottomLimit;
+  }
+
   @override
   Future<void> onLoad() async {
     camera.zoom = 3;
@@ -64,6 +75,9 @@ class VeryGoodFlameGame extends FlameGame
     await add(player);
     await add(Terrace(position: Vector2(size.x / 2, 140)));
     await add(TerraceGenerator(player));
+    await add(GameOver(
+      margin: EdgeInsets.only(top: 100, left: size.x / 2),
+    ));
     await add(
       Score(
         margin: const EdgeInsets.only(top: 30, right: 60),
