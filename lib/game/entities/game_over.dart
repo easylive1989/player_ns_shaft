@@ -7,6 +7,7 @@ import 'package:player_ns_shaft/game/game.dart';
 class GameOver extends HudMarginComponent<VeryGoodFlameGame> {
   GameOver({
     required EdgeInsets margin,
+    required super.position
   }) : super(
           margin: margin,
           priority: 10,

@@ -26,7 +26,6 @@ class VeryGoodFlameGame extends FlameGame
     required this.effectPlayer,
     required this.isNormalMode,
   }) {
-    // debugMode = true;
     images.prefix = '';
   }
 
@@ -77,6 +76,7 @@ class VeryGoodFlameGame extends FlameGame
     await add(TerraceGenerator(player));
     await add(GameOver(
       margin: EdgeInsets.only(top: 100, left: size.x / 2),
+      position: size / 2,
     ));
     await add(
       Score(
