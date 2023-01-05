@@ -2,7 +2,6 @@ import 'package:flame/game.dart' hide Route;
 import 'package:flame_audio/bgm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:player_ns_shaft/game/cubit/mode/mode_cubit.dart';
 import 'package:player_ns_shaft/game/game.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
@@ -63,7 +62,6 @@ class _GameViewState extends State<GameView> {
         VeryGoodFlameGame(
           l10n: context.l10n,
           effectPlayer: context.read<AudioCubit>().effectPlayer,
-          isNormalMode: context.read<ModeCubit>().isNormalMode,
         );
     return Stack(
       children: [

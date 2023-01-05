@@ -3,11 +3,9 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:player_ns_shaft/game/entities/final_terrace.dart';
 import 'package:player_ns_shaft/game/entities/game_over.dart';
 import 'package:player_ns_shaft/game/entities/hunter.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
-import 'package:player_ns_shaft/game/entities/ring.dart';
 import 'package:player_ns_shaft/game/entities/score.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
@@ -24,14 +22,12 @@ class VeryGoodFlameGame extends FlameGame
   VeryGoodFlameGame({
     required this.l10n,
     required this.effectPlayer,
-    required this.isNormalMode,
   }) {
+    debugMode = true;
     images.prefix = '';
   }
 
   final AppLocalizations l10n;
-
-  final bool isNormalMode;
 
   final AudioPlayer effectPlayer;
 
@@ -84,11 +80,5 @@ class VeryGoodFlameGame extends FlameGame
         player: player,
       ),
     );
-    if (!isNormalMode) {
-      await add(Ring(position: Vector2(size.x / 2, 1000)));
-      await add(
-        FinalTerrace(position: Vector2(0, 1000), size: Vector2(size.x, 200)),
-      );
-    }
   }
 }

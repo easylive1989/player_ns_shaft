@@ -9,11 +9,12 @@ class Player extends PositionComponent
   Player({
     required super.position,
     required this.joystick,
-  }) : super(size: Vector2(69, 44), anchor: Anchor.center) {
+  }) : super(size: Vector2(120, 80), anchor: Anchor.center) {
     add(
       RectangleHitbox(
-        position: Vector2(16, 10),
-        size: Vector2(20, 34),
+        anchor: Anchor.center,
+        size: Vector2(22, 40),
+        position: Vector2(55, 60),
       ),
     );
   }
@@ -73,40 +74,33 @@ class Player extends PositionComponent
 
   Future<SpriteAnimation> _getIdleAnimation() {
     return gameRef.loadSpriteAnimation(
-      Assets.images.warriorAnimation.path,
+      Assets.images.knightIdle.path,
       SpriteAnimationData.sequenced(
-        amount: 6,
+        amount: 10,
         stepTime: 0.1,
-        amountPerRow: 6,
-        textureSize: Vector2(69, 44),
+        textureSize: Vector2(120, 80),
       ),
     );
   }
 
   Future<SpriteAnimation> _getRightRunningAnimation() {
     return gameRef.loadSpriteAnimation(
-      Assets.images.warriorAnimation.path,
-      SpriteAnimationData.range(
-        start: 6,
-        end: 13,
-        amount: 99,
-        stepTimes: List.generate(8, (index) => 0.1),
-        amountPerRow: 6,
-        textureSize: Vector2(69, 44),
+      Assets.images.knightRun.path,
+      SpriteAnimationData.sequenced(
+        amount: 10,
+        stepTime: 0.1,
+        textureSize: Vector2(120, 80),
       ),
     );
   }
 
   Future<SpriteAnimation> _getLeftRunningAnimation() {
     return gameRef.loadSpriteAnimation(
-      Assets.images.warriorAnimation.path,
-      SpriteAnimationData.range(
-        start: 6,
-        end: 13,
-        amount: 99,
-        stepTimes: List.generate(8, (index) => 0.1),
-        amountPerRow: 6,
-        textureSize: Vector2(69, 44),
+      Assets.images.knightRun.path,
+      SpriteAnimationData.sequenced(
+        amount: 10,
+        stepTime: 0.1,
+        textureSize: Vector2(120, 80),
       ),
     );
   }
@@ -117,16 +111,21 @@ class Player extends PositionComponent
       return;
     }
 
+
+    if (canGoY) {
+      _animationGroupComponent.current = WarriorBehavior.idle;
+      position.y += 1;
+      return;
+    }
+
     final isGoLeft =
         _animationGroupComponent.current == WarriorBehavior.goLeft;
     if (isGoLeft && !isFlippedHorizontally) {
       flipHorizontallyAroundCenter();
-      position.x -= 18;
     }
 
     if (!isGoLeft && isFlippedHorizontally) {
       flipHorizontallyAroundCenter();
-      position.x += 18;
     }
 
     if (joystick.direction == JoystickDirection.right &&
@@ -144,10 +143,6 @@ class Player extends PositionComponent
 
     if (!joystick.isDragged) {
       _animationGroupComponent.current = WarriorBehavior.idle;
-    }
-
-    if (canGoY) {
-      position.y += 1;
     }
   }
 }
