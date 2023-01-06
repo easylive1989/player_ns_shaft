@@ -29,6 +29,10 @@ class $AssetsImagesGen {
   AssetGenImage get knightIdle =>
       const AssetGenImage('assets/images/knight_idle.png');
 
+  /// File path: assets/images/knight_left_run.png
+  AssetGenImage get knightLeftRun =>
+      const AssetGenImage('assets/images/knight_left_run.png');
+
   /// File path: assets/images/knight_run.png
   AssetGenImage get knightRun =>
       const AssetGenImage('assets/images/knight_run.png');
@@ -42,8 +46,13 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/warrior_animation.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [knightIdle, knightRun, unicornAnimation, warriorAnimation];
+  List<AssetGenImage> get values => [
+        knightIdle,
+        knightLeftRun,
+        knightRun,
+        unicornAnimation,
+        warriorAnimation
+      ];
 }
 
 class $AssetsLicensesGen {

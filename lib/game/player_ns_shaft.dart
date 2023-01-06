@@ -11,19 +11,12 @@ import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
-enum WarriorBehavior {
-  idle,
-  goRight,
-  goLeft,
-}
-
 class VeryGoodFlameGame extends FlameGame
     with HasTappables, HasCollisionDetection, HasDraggables {
   VeryGoodFlameGame({
     required this.l10n,
     required this.effectPlayer,
   }) {
-    debugMode = true;
     images.prefix = '';
   }
 

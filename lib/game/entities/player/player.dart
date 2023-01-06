@@ -4,6 +4,12 @@ import 'package:flame/components.dart';
 import 'package:player_ns_shaft/game/game.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 
+enum WarriorBehavior {
+  idle,
+  goRight,
+  goLeft,
+}
+
 class Player extends PositionComponent
     with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks {
   Player({
@@ -111,21 +117,10 @@ class Player extends PositionComponent
       return;
     }
 
-
     if (canGoY) {
       _animationGroupComponent.current = WarriorBehavior.idle;
       position.y += 1;
       return;
-    }
-
-    final isGoLeft =
-        _animationGroupComponent.current == WarriorBehavior.goLeft;
-    if (isGoLeft && !isFlippedHorizontally) {
-      flipHorizontallyAroundCenter();
-    }
-
-    if (!isGoLeft && isFlippedHorizontally) {
-      flipHorizontallyAroundCenter();
     }
 
     if (joystick.direction == JoystickDirection.right &&
@@ -139,6 +134,16 @@ class Player extends PositionComponent
         position.x >= 0) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent.current = WarriorBehavior.goLeft;
+    }
+
+    final isGoLeft =
+        _animationGroupComponent.current == WarriorBehavior.goLeft;
+    if (isGoLeft && !isFlippedHorizontally) {
+      flipHorizontallyAroundCenter();
+    }
+
+    if (!isGoLeft && isFlippedHorizontally) {
+      flipHorizontallyAroundCenter();
     }
 
     if (!joystick.isDragged) {
