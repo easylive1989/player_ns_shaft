@@ -14,7 +14,7 @@ class TerraceGenerator extends Component with HasGameRef<VeryGoodFlameGame> {
     final random = Random();
     final unit = gameRef.size.x / 6;
     var currentGenerateSize = -unit;
-    if (player.position.y % 70 == 30 ) {
+    if (player.position.y % 70 == 30) {
       while (currentGenerateSize < gameRef.size.x + unit) {
         final nextInt = random.nextInt(gameRef.size.x.toInt()) + unit;
         currentGenerateSize += nextInt;

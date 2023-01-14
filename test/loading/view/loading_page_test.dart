@@ -56,10 +56,9 @@ void main() {
 
     testWidgets('loading text', (tester) async {
       final navigator = MockNavigator();
-      when(() => navigator.pushReplacementNamed(any()))
-          .thenAnswer((_) async {
-            return null;
-          });
+      when(() => navigator.pushReplacementNamed(any())).thenAnswer((_) async {
+        return null;
+      });
 
       Text textWidgetFinder() {
         return find.textContaining('Loading').evaluate().first.widget as Text;
@@ -89,9 +88,8 @@ void main() {
 
     testWidgets('redirects after loading', (tester) async {
       final navigator = MockNavigator();
-      when(() => navigator.pushReplacementNamed(any()))
-          .thenAnswer((_) async {
-            return null;
+      when(() => navigator.pushReplacementNamed(any())).thenAnswer((_) async {
+        return null;
       });
 
       await tester.pumpApp(

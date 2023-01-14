@@ -136,8 +136,7 @@ class Player extends PositionComponent
       _animationGroupComponent.current = WarriorBehavior.goLeft;
     }
 
-    final isGoLeft =
-        _animationGroupComponent.current == WarriorBehavior.goLeft;
+    final isGoLeft = _animationGroupComponent.current == WarriorBehavior.goLeft;
     if (isGoLeft && !isFlippedHorizontally) {
       flipHorizontallyAroundCenter();
     }

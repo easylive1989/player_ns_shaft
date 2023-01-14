@@ -5,10 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:player_ns_shaft/game/game.dart';
 
 class GameOver extends HudMarginComponent<VeryGoodFlameGame> {
-  GameOver({
-    required EdgeInsets margin,
-    required super.position
-  }) : super(
+  GameOver({required EdgeInsets margin, required super.position})
+      : super(
           margin: margin,
           priority: 10,
           size: Vector2(100, 10),
