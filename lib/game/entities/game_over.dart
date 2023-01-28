@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:player_ns_shaft/game/game.dart';
+import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 
 class GameOver extends HudMarginComponent<VeryGoodFlameGame> {
   GameOver({required EdgeInsets margin, required super.position})

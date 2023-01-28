@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
-import 'package:player_ns_shaft/game/game.dart';
+import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 
 class TerraceGenerator extends Component with HasGameRef<VeryGoodFlameGame> {
   TerraceGenerator(this.player) : super();

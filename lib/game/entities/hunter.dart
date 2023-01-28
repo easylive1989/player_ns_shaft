@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:player_ns_shaft/game/game.dart';
+import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 
 class Hunter extends PositionComponent with HasGameRef<VeryGoodFlameGame> {
   Hunter({super.position}) : super();

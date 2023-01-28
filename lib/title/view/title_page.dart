@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:player_ns_shaft/game/game.dart';
+import 'package:player_ns_shaft/game/view/game_page.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 class TitlePage extends StatelessWidget {
