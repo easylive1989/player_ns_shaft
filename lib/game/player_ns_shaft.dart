@@ -7,7 +7,6 @@ import 'package:player_ns_shaft/game/entities/game_over.dart';
 import 'package:player_ns_shaft/game/entities/hunter.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/game/entities/score.dart';
-import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
@@ -61,8 +60,7 @@ class VeryGoodFlameGame extends FlameGame
     );
 
     await add(player);
-    await add(Terrace(position: Vector2(size.x / 2, 140)));
-    await add(TerraceGenerator(player));
+    await add(TerraceGenerator());
     await add(
       GameOver(
         margin: EdgeInsets.only(top: 100, left: size.x / 2),
