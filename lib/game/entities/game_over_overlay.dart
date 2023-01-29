@@ -13,10 +13,9 @@ class GameOverOverlay extends StatelessWidget {
       color: Theme.of(context).colorScheme.background,
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.all(48.0),
+          padding: const EdgeInsets.all(48),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 'Game Over',
@@ -24,21 +23,20 @@ class GameOverOverlay extends StatelessWidget {
               ),
               const SizedBox(height: 50),
               Text(
-                'Score: ${game.score}'
+                'Score: ${game.score}',
               ),
               const SizedBox(
                 height: 50,
               ),
               ElevatedButton(
-                onPressed: () {
-                  game.startGame();
-                },
+                onPressed: game.startGame,
                 style: ButtonStyle(
                   minimumSize: MaterialStateProperty.all(
                     const Size(200, 75),
                   ),
                   textStyle: MaterialStateProperty.all(
-                      Theme.of(context).textTheme.titleLarge),
+                    Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
                 child: const Text('Play Again'),
               ),

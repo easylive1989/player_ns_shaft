@@ -71,7 +71,8 @@ class _GameViewState extends State<GameView> {
           child: GameWidget(
             game: _game!,
             overlayBuilderMap: <String, Widget Function(BuildContext, Game)>{
-              'gameOverOverlay': (context, game) => GameOverOverlay(game as VeryGoodFlameGame),
+              'gameOverOverlay': (context, game) =>
+                  GameOverOverlay(game as VeryGoodFlameGame),
             },
           ),
         ),
