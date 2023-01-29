@@ -3,6 +3,7 @@ import 'package:flame_audio/bgm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:player_ns_shaft/game/cubit/audio/audio_cubit.dart';
+import 'package:player_ns_shaft/game/entities/game_over_overlay.dart';
 import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
@@ -66,7 +67,14 @@ class _GameViewState extends State<GameView> {
         );
     return Stack(
       children: [
-        Positioned.fill(child: GameWidget(game: _game!)),
+        Positioned.fill(
+          child: GameWidget(
+            game: _game!,
+            overlayBuilderMap: <String, Widget Function(BuildContext, Game)>{
+              'gameOverOverlay': (context, game) => GameOverOverlay(game as VeryGoodFlameGame),
+            },
+          ),
+        ),
         Align(
           alignment: Alignment.topRight,
           child: BlocBuilder<AudioCubit, AudioState>(

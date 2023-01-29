@@ -35,7 +35,7 @@ class TerraceGenerator extends Component with HasGameRef<VeryGoodFlameGame> {
     while (currentGenerateSize < gameRef.size.x + unit) {
       final nextInt = random.nextInt(gameRef.size.x.toInt()) + unit;
       currentGenerateSize += nextInt;
-      gameRef.add(
+      add(
         Terrace(
           position: Vector2(currentGenerateSize, cameraBottomY + 10),
         ),

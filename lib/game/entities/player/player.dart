@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 
@@ -37,6 +38,9 @@ class Player extends PositionComponent
     PositionComponent other,
   ) {
     super.onCollisionStart(intersectionPoints, other);
+    if (other is! Terrace) {
+      return;
+    }
     final xGroup = groupBy(intersectionPoints, (point) => point.x);
     final yGroup = groupBy(intersectionPoints, (point) => point.y);
     if (xGroup.length == 1) {
@@ -113,10 +117,6 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
-    if (gameRef.isGameOver) {
-      return;
-    }
-
     if (canGoY) {
       _animationGroupComponent.current = WarriorBehavior.idle;
       position.y += 1;
