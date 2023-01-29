@@ -8,6 +8,7 @@ import 'package:player_ns_shaft/game/entities/hunter.dart';
 import 'package:player_ns_shaft/game/entities/player/player.dart';
 import 'package:player_ns_shaft/game/entities/score.dart';
 import 'package:player_ns_shaft/game/entities/terrace_generator.dart';
+import 'package:player_ns_shaft/game/entities/world.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 class VeryGoodFlameGame extends FlameGame
@@ -24,9 +25,6 @@ class VeryGoodFlameGame extends FlameGame
   final AudioPlayer effectPlayer;
 
   late Player player;
-
-  @override
-  Color backgroundColor() => const Color(0xFF2A48DF);
 
   bool get isGameOver {
     const overLimit = 50;
@@ -50,6 +48,7 @@ class VeryGoodFlameGame extends FlameGame
       priority: 10,
     );
 
+    add(World());
     await add(joystick);
     player = Player(position: Vector2(size.x / 2, 15), joystick: joystick);
     final hunter = Hunter(position: Vector2(0, 0));
