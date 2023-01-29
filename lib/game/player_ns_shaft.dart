@@ -15,7 +15,6 @@ class VeryGoodFlameGame extends FlameGame
     required this.l10n,
     required this.effectPlayer,
   }) {
-    debugMode = true;
     images.prefix = '';
   }
 
