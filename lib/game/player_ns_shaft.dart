@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:player_ns_shaft/game/entities/hunter.dart';
@@ -10,7 +11,7 @@ import 'package:player_ns_shaft/game/entities/world.dart';
 import 'package:player_ns_shaft/l10n/l10n.dart';
 
 class VeryGoodFlameGame extends FlameGame
-    with HasTappables, HasCollisionDetection, HasDraggables {
+    with HasTappables, HasCollisionDetection, HasDraggables, HasKeyboardHandlerComponents {
   VeryGoodFlameGame({
     required this.l10n,
     required this.effectPlayer,

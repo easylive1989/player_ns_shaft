@@ -1,5 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/services.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
 import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
@@ -12,7 +13,7 @@ enum WarriorBehavior {
 }
 
 class Player extends PositionComponent
-    with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks {
+    with HasGameRef<VeryGoodFlameGame>, CollisionCallbacks, KeyboardHandler {
   Player({
     required super.position,
     required this.joystick,
@@ -27,6 +28,7 @@ class Player extends PositionComponent
   }
 
   final JoystickComponent joystick;
+  final double velocity = 50;
   final _playerAnimationData = SpriteAnimationData.sequenced(
     amount: 10,
     stepTime: 0.1,
@@ -34,6 +36,9 @@ class Player extends PositionComponent
   );
   late SpriteAnimationGroupComponent<WarriorBehavior> _animationGroupComponent;
   bool canGoY = true;
+  bool isMovingRight = false;
+  bool isMovingLeft = false;
+  bool isKeyPressing = false;
 
   @override
   void onCollisionStart(
@@ -57,6 +62,25 @@ class Player extends PositionComponent
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
     canGoY = true;
+  }
+
+  @override
+  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)) {
+      isMovingLeft = true;
+      isMovingRight = false;
+      isKeyPressing = true;
+    } else if (keysPressed.contains(LogicalKeyboardKey.arrowRight)) {
+      isMovingLeft = false;
+      isMovingRight = true;
+      isKeyPressing = true;
+    } else {
+      isMovingLeft = false;
+      isMovingRight = false;
+      isKeyPressing = false;
+    }
+
+    return true;
   }
 
   @override
@@ -89,35 +113,43 @@ class Player extends PositionComponent
   @override
   void update(double dt) {
     if (canGoY) {
-      _updateIdle();
       position.y += 1;
     }
 
-    if (joystick.direction == JoystickDirection.right) {
-      _updateGoRight();
+    if (!isKeyPressing) {
+      if (joystick.direction == JoystickDirection.right) {
+        isMovingLeft = false;
+        isMovingRight = true;
+      } else if (joystick.direction == JoystickDirection.left) {
+        isMovingLeft = true;
+        isMovingRight = false;
+      } else {
+        isMovingLeft = false;
+        isMovingRight = false;
+      }
     }
 
-    if (joystick.direction == JoystickDirection.left) {
-      _updateGoLeft();
-    }
 
-    if (!joystick.isDragged) {
-      _updateIdle();
-      return;
+    if (isMovingLeft) {
+      _moveLeft(dt);
+    } else if (isMovingRight) {
+      _moveRight(dt);
+    } else {
+      _idle();
     }
   }
 
-  void _updateGoLeft() {
-    position.x += joystick.relativeDelta[0];
+  void _moveLeft(double delta) {
+    position.x -= velocity * delta;
     _animationGroupComponent.current = WarriorBehavior.goLeft;
   }
 
-  void _updateGoRight() {
-    position.x += joystick.relativeDelta[0];
+  void _moveRight(double delta) {
+    position.x += velocity * delta;
     _animationGroupComponent.current = WarriorBehavior.goRight;
   }
 
-  void _updateIdle() {
+  void _idle() {
     if (joystick.direction == JoystickDirection.left) {
       _animationGroupComponent.current = WarriorBehavior.idleLeft;
     }
