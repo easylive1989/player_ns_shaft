@@ -50,7 +50,6 @@ class Player extends PositionComponent
     final isCollidingVertically =
         (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 5;
 
-    print(isCollidingVertically);
     if (isCollidingVertically) {
       canGoY = false;
     }
@@ -111,6 +110,7 @@ class Player extends PositionComponent
       if (joystick.direction == JoystickDirection.right) {
         _animationGroupComponent.current = WarriorBehavior.idleRight;
       }
+      return;
     }
 
     if (joystick.direction == JoystickDirection.right) {
