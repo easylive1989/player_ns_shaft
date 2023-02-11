@@ -33,8 +33,6 @@ class Player extends PositionComponent
     textureSize: Vector2(120, 80),
   );
   late SpriteAnimationGroupComponent<WarriorBehavior> _animationGroupComponent;
-  bool canGoRight = true;
-  bool canGoLeft = true;
   bool canGoY = true;
 
   @override
@@ -58,8 +56,6 @@ class Player extends PositionComponent
   @override
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
-    canGoLeft = true;
-    canGoRight = true;
     canGoY = true;
   }
 
@@ -93,34 +89,40 @@ class Player extends PositionComponent
   @override
   void update(double dt) {
     if (canGoY) {
-      if (joystick.direction == JoystickDirection.left) {
-        _animationGroupComponent.current = WarriorBehavior.idleLeft;
-      }
-      if (joystick.direction == JoystickDirection.right) {
-        _animationGroupComponent.current = WarriorBehavior.idleRight;
-      }
+      _updateIdle();
       position.y += 1;
-      return;
-    }
-
-    if (!joystick.isDragged) {
-      if (joystick.direction == JoystickDirection.left) {
-        _animationGroupComponent.current = WarriorBehavior.idleLeft;
-      }
-      if (joystick.direction == JoystickDirection.right) {
-        _animationGroupComponent.current = WarriorBehavior.idleRight;
-      }
-      return;
     }
 
     if (joystick.direction == JoystickDirection.right) {
-      position.x += joystick.relativeDelta[0];
-      _animationGroupComponent.current = WarriorBehavior.goRight;
+      _updateGoRight();
     }
 
     if (joystick.direction == JoystickDirection.left) {
-      position.x += joystick.relativeDelta[0];
-      _animationGroupComponent.current = WarriorBehavior.goLeft;
+      _updateGoLeft();
+    }
+
+    if (!joystick.isDragged) {
+      _updateIdle();
+      return;
+    }
+  }
+
+  void _updateGoLeft() {
+    position.x += joystick.relativeDelta[0];
+    _animationGroupComponent.current = WarriorBehavior.goLeft;
+  }
+
+  void _updateGoRight() {
+    position.x += joystick.relativeDelta[0];
+    _animationGroupComponent.current = WarriorBehavior.goRight;
+  }
+
+  void _updateIdle() {
+    if (joystick.direction == JoystickDirection.left) {
+      _animationGroupComponent.current = WarriorBehavior.idleLeft;
+    }
+    if (joystick.direction == JoystickDirection.right) {
+      _animationGroupComponent.current = WarriorBehavior.idleRight;
     }
   }
 }
