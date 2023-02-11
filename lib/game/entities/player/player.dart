@@ -41,17 +41,11 @@ class Player extends PositionComponent
     if (other is! Terrace) {
       return;
     }
-    final xGroup = groupBy(intersectionPoints, (point) => point.x);
-    final yGroup = groupBy(intersectionPoints, (point) => point.y);
-    if (xGroup.length == 1) {
-      if (_animationGroupComponent.current == WarriorBehavior.goRight) {
-        canGoRight = false;
-      } else {
-        canGoLeft = false;
-      }
-    }
 
-    if (yGroup.length == 1) {
+    final isCollidingVertically =
+        (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 5;
+
+    if (isCollidingVertically) {
       canGoY = false;
     }
   }
