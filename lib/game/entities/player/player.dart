@@ -5,9 +5,10 @@ import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 import 'package:player_ns_shaft/gen/assets.gen.dart';
 
 enum WarriorBehavior {
-  idle,
-  goRight,
+  idleLeft,
   goLeft,
+  idleRight,
+  goRight,
 }
 
 class Player extends PositionComponent
@@ -26,6 +27,11 @@ class Player extends PositionComponent
   }
 
   final JoystickComponent joystick;
+  final _playerAnimationData = SpriteAnimationData.sequenced(
+    amount: 10,
+    stepTime: 0.1,
+    textureSize: Vector2(120, 80),
+  );
   late SpriteAnimationGroupComponent<WarriorBehavior> _animationGroupComponent;
   bool canGoRight = true;
   bool canGoLeft = true;
@@ -44,6 +50,7 @@ class Player extends PositionComponent
     final isCollidingVertically =
         (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 5;
 
+    print(isCollidingVertically);
     if (isCollidingVertically) {
       canGoY = false;
     }
@@ -59,61 +66,51 @@ class Player extends PositionComponent
 
   @override
   Future<void> onLoad() async {
-    final idleAnimation = await _getIdleAnimation();
-    final rightAnimation = await _getRightRunningAnimation();
-    final leftAnimation = await _getLeftRunningAnimation();
-
     _animationGroupComponent = SpriteAnimationGroupComponent<WarriorBehavior>(
       animations: {
-        WarriorBehavior.idle: idleAnimation,
-        WarriorBehavior.goRight: rightAnimation,
-        WarriorBehavior.goLeft: leftAnimation,
+        WarriorBehavior.idleLeft: await gameRef.loadSpriteAnimation(
+          Assets.images.knightLeftIdle.path,
+          _playerAnimationData,
+        ),
+        WarriorBehavior.goLeft: await gameRef.loadSpriteAnimation(
+          Assets.images.knightLeftRun.path,
+          _playerAnimationData,
+        ),
+        WarriorBehavior.idleRight: await gameRef.loadSpriteAnimation(
+          Assets.images.knightRightIdle.path,
+          _playerAnimationData,
+        ),
+        WarriorBehavior.goRight: await gameRef.loadSpriteAnimation(
+          Assets.images.knightRightRun.path,
+          _playerAnimationData,
+        ),
       },
-      current: WarriorBehavior.idle,
+      current: WarriorBehavior.idleRight,
       size: size,
     );
     await add(_animationGroupComponent);
   }
 
-  Future<SpriteAnimation> _getIdleAnimation() {
-    return gameRef.loadSpriteAnimation(
-      Assets.images.knightIdle.path,
-      SpriteAnimationData.sequenced(
-        amount: 10,
-        stepTime: 0.1,
-        textureSize: Vector2(120, 80),
-      ),
-    );
-  }
-
-  Future<SpriteAnimation> _getRightRunningAnimation() {
-    return gameRef.loadSpriteAnimation(
-      Assets.images.knightRightRun.path,
-      SpriteAnimationData.sequenced(
-        amount: 10,
-        stepTime: 0.1,
-        textureSize: Vector2(120, 80),
-      ),
-    );
-  }
-
-  Future<SpriteAnimation> _getLeftRunningAnimation() {
-    return gameRef.loadSpriteAnimation(
-      Assets.images.knightLeftRun.path,
-      SpriteAnimationData.sequenced(
-        amount: 10,
-        stepTime: 0.1,
-        textureSize: Vector2(120, 80),
-      ),
-    );
-  }
-
   @override
   void update(double dt) {
     if (canGoY) {
-      _animationGroupComponent.current = WarriorBehavior.idle;
+      if (joystick.direction == JoystickDirection.left) {
+        _animationGroupComponent.current = WarriorBehavior.idleLeft;
+      }
+      if (joystick.direction == JoystickDirection.right) {
+        _animationGroupComponent.current = WarriorBehavior.idleRight;
+      }
       position.y += 1;
       return;
+    }
+
+    if (!joystick.isDragged) {
+      if (joystick.direction == JoystickDirection.left) {
+        _animationGroupComponent.current = WarriorBehavior.idleLeft;
+      }
+      if (joystick.direction == JoystickDirection.right) {
+        _animationGroupComponent.current = WarriorBehavior.idleRight;
+      }
     }
 
     if (joystick.direction == JoystickDirection.right) {
@@ -124,10 +121,6 @@ class Player extends PositionComponent
     if (joystick.direction == JoystickDirection.left) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent.current = WarriorBehavior.goLeft;
-    }
-
-    if (!joystick.isDragged) {
-      _animationGroupComponent.current = WarriorBehavior.idle;
     }
   }
 }

@@ -28,13 +28,17 @@ class $AssetsImagesGen {
   $AssetsImagesBackgroundGen get background =>
       const $AssetsImagesBackgroundGen();
 
-  /// File path: assets/images/knight_idle.png
-  AssetGenImage get knightIdle =>
-      const AssetGenImage('assets/images/knight_idle.png');
+  /// File path: assets/images/knight_left_idle.png
+  AssetGenImage get knightLeftIdle =>
+      const AssetGenImage('assets/images/knight_left_idle.png');
 
   /// File path: assets/images/knight_left_run.png
   AssetGenImage get knightLeftRun =>
       const AssetGenImage('assets/images/knight_left_run.png');
+
+  /// File path: assets/images/knight_right_idle.png
+  AssetGenImage get knightRightIdle =>
+      const AssetGenImage('assets/images/knight_right_idle.png');
 
   /// File path: assets/images/knight_right_run.png
   AssetGenImage get knightRightRun =>
@@ -50,8 +54,9 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        knightIdle,
+        knightLeftIdle,
         knightLeftRun,
+        knightRightIdle,
         knightRightRun,
         unicornAnimation,
         warriorAnimation
