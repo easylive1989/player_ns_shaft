@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:player_ns_shaft/game/entities/terrace.dart';
@@ -89,7 +88,7 @@ class Player extends PositionComponent
 
   Future<SpriteAnimation> _getRightRunningAnimation() {
     return gameRef.loadSpriteAnimation(
-      Assets.images.knightRun.path,
+      Assets.images.knightRightRun.path,
       SpriteAnimationData.sequenced(
         amount: 10,
         stepTime: 0.1,
@@ -100,7 +99,7 @@ class Player extends PositionComponent
 
   Future<SpriteAnimation> _getLeftRunningAnimation() {
     return gameRef.loadSpriteAnimation(
-      Assets.images.knightRun.path,
+      Assets.images.knightLeftRun.path,
       SpriteAnimationData.sequenced(
         amount: 10,
         stepTime: 0.1,
@@ -117,26 +116,14 @@ class Player extends PositionComponent
       return;
     }
 
-    if (joystick.direction == JoystickDirection.right &&
-        canGoRight &&
-        position.x <= gameRef.size.x) {
+    if (joystick.direction == JoystickDirection.right) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent.current = WarriorBehavior.goRight;
     }
-    if (joystick.direction == JoystickDirection.left &&
-        canGoLeft &&
-        position.x >= 0) {
+
+    if (joystick.direction == JoystickDirection.left) {
       position.x += joystick.relativeDelta[0];
       _animationGroupComponent.current = WarriorBehavior.goLeft;
-    }
-
-    final isGoLeft = _animationGroupComponent.current == WarriorBehavior.goLeft;
-    if (isGoLeft && !isFlippedHorizontally) {
-      flipHorizontallyAroundCenter();
-    }
-
-    if (!isGoLeft && isFlippedHorizontally) {
-      flipHorizontallyAroundCenter();
     }
 
     if (!joystick.isDragged) {

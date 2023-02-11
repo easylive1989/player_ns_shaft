@@ -32,9 +32,13 @@ class $AssetsImagesGen {
   AssetGenImage get knightIdle =>
       const AssetGenImage('assets/images/knight_idle.png');
 
-  /// File path: assets/images/knight_run.png
-  AssetGenImage get knightRun =>
-      const AssetGenImage('assets/images/knight_run.png');
+  /// File path: assets/images/knight_left_run.png
+  AssetGenImage get knightLeftRun =>
+      const AssetGenImage('assets/images/knight_left_run.png');
+
+  /// File path: assets/images/knight_right_run.png
+  AssetGenImage get knightRightRun =>
+      const AssetGenImage('assets/images/knight_right_run.png');
 
   /// File path: assets/images/unicorn_animation.png
   AssetGenImage get unicornAnimation =>
@@ -45,8 +49,13 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/warrior_animation.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [knightIdle, knightRun, unicornAnimation, warriorAnimation];
+  List<AssetGenImage> get values => [
+        knightIdle,
+        knightLeftRun,
+        knightRightRun,
+        unicornAnimation,
+        warriorAnimation
+      ];
 }
 
 class $AssetsLicensesGen {
@@ -58,48 +67,38 @@ class $AssetsLicensesGen {
 class $AssetsImagesBackgroundGen {
   const $AssetsImagesBackgroundGen();
 
-  /// File path: assets/images/background/Background DARKER.png
-  AssetGenImage get backgroundDARKER =>
-      const AssetGenImage('assets/images/background/Background DARKER.png');
+  /// File path: assets/images/background/Background_Big_Stars.png
+  AssetGenImage get backgroundBigStars =>
+      const AssetGenImage('assets/images/background/Background_Big_Stars.png');
 
-  /// File path: assets/images/background/Background Reference.png
-  AssetGenImage get backgroundReference =>
-      const AssetGenImage('assets/images/background/Background Reference.png');
+  /// File path: assets/images/background/Background_Block_Shapes.png
+  AssetGenImage get backgroundBlockShapes => const AssetGenImage(
+      'assets/images/background/Background_Block_Shapes.png');
 
-  /// File path: assets/images/background/Background_Big Stars_v01.png
-  AssetGenImage get backgroundBigStarsV01 => const AssetGenImage(
-      'assets/images/background/Background_Big Stars_v01.png');
+  /// File path: assets/images/background/Background_Orbs.png
+  AssetGenImage get backgroundOrbs =>
+      const AssetGenImage('assets/images/background/Background_Orbs.png');
 
-  /// File path: assets/images/background/Background_Block Shapes_v01.png
-  AssetGenImage get backgroundBlockShapesV01 => const AssetGenImage(
-      'assets/images/background/Background_Block Shapes_v01.png');
+  /// File path: assets/images/background/Background_Small_Stars.png
+  AssetGenImage get backgroundSmallStars => const AssetGenImage(
+      'assets/images/background/Background_Small_Stars.png');
 
-  /// File path: assets/images/background/Background_Orbs_V01.png
-  AssetGenImage get backgroundOrbsV01 =>
-      const AssetGenImage('assets/images/background/Background_Orbs_V01.png');
+  /// File path: assets/images/background/Background_Solid.png
+  AssetGenImage get backgroundSolid =>
+      const AssetGenImage('assets/images/background/Background_Solid.png');
 
-  /// File path: assets/images/background/Background_Small Stars_v01.png
-  AssetGenImage get backgroundSmallStarsV01 => const AssetGenImage(
-      'assets/images/background/Background_Small Stars_v01.png');
-
-  /// File path: assets/images/background/Background_Solid_v01.png
-  AssetGenImage get backgroundSolidV01 =>
-      const AssetGenImage('assets/images/background/Background_Solid_v01.png');
-
-  /// File path: assets/images/background/Background_Squiggles_v01.png
-  AssetGenImage get backgroundSquigglesV01 => const AssetGenImage(
-      'assets/images/background/Background_Squiggles_v01.png');
+  /// File path: assets/images/background/Background_Squiggles.png
+  AssetGenImage get backgroundSquiggles =>
+      const AssetGenImage('assets/images/background/Background_Squiggles.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        backgroundDARKER,
-        backgroundReference,
-        backgroundBigStarsV01,
-        backgroundBlockShapesV01,
-        backgroundOrbsV01,
-        backgroundSmallStarsV01,
-        backgroundSolidV01,
-        backgroundSquigglesV01
+        backgroundBigStars,
+        backgroundBlockShapes,
+        backgroundOrbs,
+        backgroundSmallStars,
+        backgroundSolid,
+        backgroundSquiggles
       ];
 }
 
