@@ -35,7 +35,7 @@ class Player extends PositionComponent
     textureSize: Vector2(120, 80),
   );
   late SpriteAnimationGroupComponent<WarriorBehavior> _animationGroupComponent;
-  bool canGoY = true;
+  bool isFalling = true;
   bool isMovingRight = false;
   bool isMovingLeft = false;
 
@@ -53,14 +53,14 @@ class Player extends PositionComponent
         (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 5;
 
     if (isCollidingVertically) {
-      canGoY = false;
+      isFalling = false;
     }
   }
 
   @override
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
-    canGoY = true;
+    isFalling = true;
   }
 
   @override
@@ -121,7 +121,7 @@ class Player extends PositionComponent
       }
     }
 
-    if (canGoY) {
+    if (isFalling) {
       position.y += 1;
     }
 
