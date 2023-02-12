@@ -28,7 +28,7 @@ class Player extends PositionComponent
   }
 
   final JoystickComponent joystick;
-  final double velocity = 50;
+  final double velocity = 100;
   final _playerAnimationData = SpriteAnimationData.sequenced(
     amount: 10,
     stepTime: 0.1,
@@ -38,7 +38,6 @@ class Player extends PositionComponent
   bool canGoY = true;
   bool isMovingRight = false;
   bool isMovingLeft = false;
-  bool isKeyPressing = false;
 
   @override
   void onCollisionStart(
@@ -69,15 +68,12 @@ class Player extends PositionComponent
     if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)) {
       isMovingLeft = true;
       isMovingRight = false;
-      isKeyPressing = true;
     } else if (keysPressed.contains(LogicalKeyboardKey.arrowRight)) {
       isMovingLeft = false;
       isMovingRight = true;
-      isKeyPressing = true;
     } else {
       isMovingLeft = false;
       isMovingRight = false;
-      isKeyPressing = false;
     }
 
     return true;
@@ -112,11 +108,7 @@ class Player extends PositionComponent
 
   @override
   void update(double dt) {
-    if (canGoY) {
-      position.y += 1;
-    }
-
-    if (!isKeyPressing) {
+    if (joystick.isDragged) {
       if (joystick.direction == JoystickDirection.right) {
         isMovingLeft = false;
         isMovingRight = true;
@@ -129,6 +121,9 @@ class Player extends PositionComponent
       }
     }
 
+    if (canGoY) {
+      position.y += 1;
+    }
 
     if (isMovingLeft) {
       _moveLeft(dt);
@@ -150,10 +145,9 @@ class Player extends PositionComponent
   }
 
   void _idle() {
-    if (joystick.direction == JoystickDirection.left) {
+    if (_animationGroupComponent.current == WarriorBehavior.goLeft) {
       _animationGroupComponent.current = WarriorBehavior.idleLeft;
-    }
-    if (joystick.direction == JoystickDirection.right) {
+    } else if (_animationGroupComponent.current == WarriorBehavior.goRight) {
       _animationGroupComponent.current = WarriorBehavior.idleRight;
     }
   }
