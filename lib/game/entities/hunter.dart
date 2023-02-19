@@ -49,7 +49,6 @@ class Hunter extends PositionComponent
     final playerPositionY = playerPositionYS > 1000 ? 1000 : playerPositionYS;
     final fallingOffset = (maxFallingVelocity - initFallingVelocity) *
         (1 - (1000 - playerPositionY) / 1000);
-    print(fallingOffset);
     final currentFallingVelocity = initFallingVelocity + fallingOffset;
 
     position.y += currentFallingVelocity * dt;
