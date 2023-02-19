@@ -29,6 +29,7 @@ class Player extends PositionComponent
 
   final JoystickComponent joystick;
   final double velocity = 100;
+  final double fallingVelocity = 100;
   final _playerAnimationData = SpriteAnimationData.sequenced(
     amount: 10,
     stepTime: 0.1,
@@ -50,7 +51,7 @@ class Player extends PositionComponent
     }
 
     final isCollidingVertically =
-        (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 5;
+        (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 1;
 
     if (isCollidingVertically) {
       isFalling = false;
@@ -122,7 +123,7 @@ class Player extends PositionComponent
     }
 
     if (isFalling) {
-      position.y += 1;
+      position.y += fallingVelocity * dt;
     }
 
     if (isMovingLeft) {
