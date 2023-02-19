@@ -7,10 +7,11 @@ import 'package:player_ns_shaft/game/player_ns_shaft.dart';
 class TerraceGenerator extends Component with HasGameRef<VeryGoodFlameGame> {
   TerraceGenerator() : super();
 
+  double currentLevel = 210;
+
   @override
   Future<void> onLoad() async {
     await add(Terrace(position: Vector2(gameRef.size.x / 2, 140)));
-    var currentLevel = 210.0;
     final cameraBottomY = gameRef.camera.position.y + gameRef.camera.gameSize.y;
     while(currentLevel <= cameraBottomY) {
       if ( currentLevel % 70 == 0) {
@@ -23,8 +24,9 @@ class TerraceGenerator extends Component with HasGameRef<VeryGoodFlameGame> {
   @override
   void update(double dt) {
     final cameraBottomY = gameRef.camera.position.y + gameRef.camera.gameSize.y;
-    if ( cameraBottomY % 70 == 0) {
-      _generateRandomTerrace(cameraBottomY);
+    if ( cameraBottomY > currentLevel) {
+      _generateRandomTerrace(currentLevel);
+      currentLevel += 70;
     }
   }
 

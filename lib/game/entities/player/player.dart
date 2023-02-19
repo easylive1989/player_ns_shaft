@@ -51,7 +51,7 @@ class Player extends PositionComponent
     }
 
     final isCollidingVertically =
-        (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 1;
+        (intersectionPoints.first.y - intersectionPoints.last.y).abs() < 5;
 
     if (isCollidingVertically) {
       isFalling = false;

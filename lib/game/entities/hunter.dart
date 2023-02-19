@@ -24,6 +24,8 @@ class Hunter extends PositionComponent
   }
 
   double delay = 0;
+  final double initFallingVelocity = 30;
+  final double maxFallingVelocity = 90;
 
   @override
   void onCollisionStart(
@@ -42,6 +44,14 @@ class Hunter extends PositionComponent
       delay += dt;
       return;
     }
-    position.y += 0.5;
+
+    final playerPositionYS = gameRef.player?.position.y ?? 0;
+    final playerPositionY = playerPositionYS > 1000 ? 1000 : playerPositionYS;
+    final fallingOffset = (maxFallingVelocity - initFallingVelocity) *
+        (1 - (1000 - playerPositionY) / 1000);
+    print(fallingOffset);
+    final currentFallingVelocity = initFallingVelocity + fallingOffset;
+
+    position.y += currentFallingVelocity * dt;
   }
 }
